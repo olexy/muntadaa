@@ -2,6 +2,7 @@
 
 namespace Muntadaa;
 
+use Muntadaa\Discussion;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,4 +37,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function discussions(){
+        return $this->hasMany(Discussion::class);
+    }
 }

@@ -22,10 +22,20 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+                    {{-- <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea> --}}
+                    <input id="content" type="hidden" name="content">
+                    <trix-editor input="content"></trix-editor>
                 </div>
                    <button class="btn btn-success" type="submit">Create Discussion</button>
             </form>
         </div>
     </div>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.css">
+@endsection
+
+@section('js')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>
 @endsection

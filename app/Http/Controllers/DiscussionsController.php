@@ -2,10 +2,17 @@
 
 namespace Muntadaa\Http\Controllers;
 
+use Muntadaa\Discussion;
 use Illuminate\Http\Request;
+use Muntadaa\Http\Requests\CreateDiscussionRequest;
 
 class DiscussionsController extends Controller
 {
+    public function _construct()
+    {
+        $this->middleware('auth')->only(['create', 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,9 @@ class DiscussionsController extends Controller
      */
     public function index()
     {
-        //
+        return view('discussions.index', [
+            'discussions' => Discussion::paginate(2)
+        ]);
     }
 
     /**
@@ -32,9 +41,19 @@ class DiscussionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDiscussionRequest $request)
     {
-        //
+        auth()->user()->discussions()->create([
+            'title' => $request->title,
+            'channel_id' => $request->channel,
+            'content' => $request->content,
+            'slug' => str_slug($request->title)
+            // 'user_id' => auth()->user()->id
+        ]);
+
+        session()->flash('success', 'Discussion added suscessfully');
+
+            return redirect()->route('discussions.index');
     }
 
     /**
