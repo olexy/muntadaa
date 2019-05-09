@@ -75,13 +75,21 @@
         <main class="container py-4">
             <div class="row">
                 <div class="col-md-4">
-                    <ul class="listgroup">
-                        @foreach ($channels as $channel)
-                            <ul class="list-group-item">
-                                <a href="#" class="list-group-item list-group-item-action active"> {{ $channel->name }} </a>
+                    <a href="{{ route('discussions.create') }}" class="btn btn-info my-2" style="width: 100%; color: #fff ">Add Discussion</a>
+                    <div class="card">
+                        <div class="card-header">
+                           Channels
+                        </div>
+                        <div class="card-body">
+                            <ul class="listgroup">
+                                @foreach ($channels as $channel)
+                                    <ul class="list-group-item">
+                                        <a href="#" class="list-group-item list-group-item-action"> {{ $channel->name }} </a>
+                                    </ul>
+                                @endforeach
                             </ul>
-                        @endforeach
-                    </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-8">
                     @yield('content')
