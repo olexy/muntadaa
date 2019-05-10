@@ -3,6 +3,7 @@
 namespace Muntadaa;
 
 use Muntadaa\User;
+use Muntadaa\Reply;
 
 class Discussion extends InheritedModel
 {
@@ -14,5 +15,10 @@ class Discussion extends InheritedModel
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }

@@ -71,12 +71,18 @@
             </div>
         </nav>
 
-        @auth
-        <main class="container py-4">
+      @if(!in_array(request()->path(), ['login', 'register', 'password/email', 'password/reset']))
+      <main class="container py-4">
             <div class="row">
                 <div class="col-md-4">
+                   @auth
+
                     <a href="{{ route('discussions.create') }}" class="btn btn-info my-2" style="width: 100%; color: #fff ">Add Discussion</a>
+                   <div class="card">
+                    @else
+                    <a href="{{ route('login') }}" class="btn btn-info my-2" style="width: 100%; color: #fff ">Sign-in to Add Discussion</a>
                     <div class="card">
+                   @endauth
                         <div class="card-header">
                            Channels
                         </div>
@@ -96,11 +102,12 @@
                 </div>
             </div>
         </main>
-        @else
-            <main class="py-4">
-                @yield('content')
-            </main>
-        @endauth
+
+      @else
+      <main class="py-4"></main>
+      @yield('content')
+
+      @endif
     </div>
 
 <!-- Scripts -->
