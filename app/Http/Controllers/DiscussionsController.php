@@ -2,6 +2,7 @@
 
 namespace Muntadaa\Http\Controllers;
 
+use Muntadaa\Reply;
 use Muntadaa\Discussion;
 use Illuminate\Http\Request;
 use Muntadaa\Http\Requests\CreateDiscussionRequest;
@@ -101,5 +102,14 @@ class DiscussionsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function bestReply(Discussion $discussion, Reply $reply)
+    {
+        $discussion->markAsBestReply($reply);
+
+        session()->flash('success', 'Marked as best reply');
+
+        return redirect()->back();
     }
 }

@@ -21,4 +21,18 @@ class Discussion extends InheritedModel
     {
         return $this->hasMany(Reply::class);
     }
+
+    public function bestReply()
+    {
+        return $this->belongsTo(Reply::class, 'reply_id');
+    }
+
+
+    public function markAsBestReply(Reply $reply)
+    {
+        $this->update([
+            'reply_id' => $reply->id
+
+        ]);
+    }
 }
