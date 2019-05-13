@@ -19,7 +19,7 @@ class BestReply extends Notification implements ShouldQueue
      * @var Discussion
      */
 
-    public $reply;
+    public $discussion;
 
     /**
      * Create a new notification instance.
