@@ -2,18 +2,12 @@
 
 namespace Muntadaa\Http\Controllers;
 
-use Muntadaa\Reply;
+use Muntadaa\Channel;
 use Muntadaa\Discussion;
 use Illuminate\Http\Request;
-use Muntadaa\Http\Requests\CreateDiscussionRequest;
 
-class DiscussionsController extends Controller
+class ChannelsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified'])->only(['create', 'store']);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +15,7 @@ class DiscussionsController extends Controller
      */
     public function index()
     {
-        return view('discussions.index', [
-            'discussions' => Discussion::filterByChannels()->paginate(5)
-        ]);
+        //
     }
 
     /**
@@ -33,7 +25,7 @@ class DiscussionsController extends Controller
      */
     public function create()
     {
-        return view('discussions.create');
+        //
     }
 
     /**
@@ -42,19 +34,9 @@ class DiscussionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateDiscussionRequest $request)
+    public function store(Request $request)
     {
-        auth()->user()->discussions()->create([
-            'title' => $request->title,
-            'channel_id' => $request->channel,
-            'content' => $request->content,
-            'slug' => str_slug($request->title)
-            // 'user_id' => auth()->user()->id
-        ]);
-
-        session()->flash('success', 'Discussion added suscessfully');
-
-            return redirect()->route('discussions.index');
+        //
     }
 
     /**
@@ -63,11 +45,14 @@ class DiscussionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Discussion $discussion)
+    public function show(Channel $channel)
     {
-         return view('discussions.show', [
-            'discussion' => $discussion
-            ]);
+        // $discussions = Discussion::where('channel_id', $id)->get();
+
+        // dd($discussions);
+
+        return view('discussions.channel-discussions')->with('discussions', $channel->discussions);
+
     }
 
     /**
@@ -102,14 +87,5 @@ class DiscussionsController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function bestReply(Discussion $discussion, Reply $reply)
-    {
-        $discussion->markAsBestReply($reply);
-
-        session()->flash('success', 'Marked as best reply');
-
-        return redirect()->back();
     }
 }
