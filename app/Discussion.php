@@ -4,6 +4,7 @@ namespace Muntadaa;
 
 use Muntadaa\User;
 use Muntadaa\Reply;
+use Muntadaa\Notifications\BestReply;
 
 class Discussion extends InheritedModel
 {
@@ -34,5 +35,7 @@ class Discussion extends InheritedModel
             'reply_id' => $reply->id
 
         ]);
+
+        $reply->owner->notify(new BestReply($reply->discussion));
     }
 }

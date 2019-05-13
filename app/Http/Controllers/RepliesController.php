@@ -4,6 +4,7 @@ namespace Muntadaa\Http\Controllers;
 
 use Muntadaa\Discussion;
 use Illuminate\Http\Request;
+use Muntadaa\Notifications\NewReplyAdded;
 use Muntadaa\Http\Requests\CreateReplyRequest;
 
 class RepliesController extends Controller
@@ -40,6 +41,8 @@ class RepliesController extends Controller
             'discussion_id' => $discussion->id,
             'content' => $request->reply
         ]);
+
+        $discussion->author->notify(new NewReplyAdded($discussion));
 
         session()->flash('success', 'Reply added');
 

@@ -1,5 +1,7 @@
 <?php
 
+use Muntadaa\Http\Controllers\UsersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +26,7 @@ Route::resource('discussions', 'DiscussionsController');
 Route::resource('discussions/{discussion}/replies', 'RepliesController');
 
 Route::post('discussions/{discussion}/replies/{reply}/mark-as-best-reply', 'DiscussionsController@bestReply')->name('discussions.best-reply');
+
+Route::get('users/notifications', [UsersController::class, 'notifications'])->name('user.notifications');
+
+
